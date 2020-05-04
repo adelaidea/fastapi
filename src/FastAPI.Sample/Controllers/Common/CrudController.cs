@@ -8,27 +8,36 @@ using System.Threading.Tasks;
 
 namespace FastAPI.Sample.Controllers.Common
 {
-    public class CrudController<TEntity, TKey, TModel, TReadModel> : Controller where TEntity : class
+    [ApiController]
+    [Route("[controller]")]
+    public class CrudController<TEntity, TKey, TAddModel, TUpdateModel> : Controller where TEntity : class
     {
-        private readonly ICrudApplicationService<TEntity, TModel> applicationService;
+        private readonly ICrudApplicationService<TEntity, TAddModel, TUpdateModel> applicationService;
 
-        public CrudController(ICrudApplicationService<TEntity, TModel> applicationService)
+        public CrudController(ICrudApplicationService<TEntity, TAddModel, TUpdateModel> applicationService)
         {
             this.applicationService = applicationService;
         }
 
         
-        [HttpGet]
-        public virtual async Task<IActionResult> Get(TKey key, CancellationToken cancellationToken)
+        [HttpGet("{id}")]
+        public virtual async Task<IActionResult> Get(TKey id, CancellationToken cancellationToken)
         {
-            return Resolve(this.applicationService.GetById<TModel,TKey>(key));
+            return Resolve(this.applicationService.GetById<TAddModel,TKey>(id));
         }
 
 
-        [HttpPost]
-        public virtual async Task<IActionResult> AddAsync(TModel model, CancellationToken cancellationToken)
+        [HttpPost("create")]
+        public virtual async Task<IActionResult> AddAsync(TAddModel model, CancellationToken cancellationToken)
         {
-            return Resolve(await this.applicationService.AddAsync<TModel>(model, cancellationToken));
+            return Resolve(await this.applicationService.AddAsync<TAddModel>(model, cancellationToken));
+        }
+
+
+        [HttpPut("update")]
+        public virtual async Task<IActionResult> UpdateAsync(TUpdateModel model, CancellationToken cancellationToken)
+        {
+            return Resolve(await this.applicationService.UpdateAsync<TUpdateModel>(model, cancellationToken));
         }
 
 

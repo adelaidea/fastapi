@@ -8,11 +8,12 @@ using FastAPI.Domain.Entities;
 
 namespace FastAPI.Application.Services
 {
-    public class UserApplicationService : CrudApplicationService<User, UserModel>, IUserApplicationService
+    public class UserApplicationService : CrudApplicationService<User, UserModel, UserUpdateModel>, IUserApplicationService
     {
+        private readonly IRepository<User> repository;
         public UserApplicationService(IRepository<User> repository, IMapper mapper, IUserDomainService domainService) : base(repository, mapper, domainService)
         {
-
+            this.repository = repository;
         }
     }
 }

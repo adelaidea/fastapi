@@ -11,7 +11,7 @@ using System.Transactions;
 
 namespace FastAPI.Application.Services.Common
 {
-    public class CrudApplicationService<TEntity, TAddModel> : ApplicationService<TEntity>, ICrudApplicationService<TEntity, TAddModel>
+    public class CrudApplicationService<TEntity, TAddModel, TUpdateModel> : ApplicationService<TEntity>, ICrudApplicationService<TEntity, TAddModel, TUpdateModel>
         where TEntity : class
     {
 
@@ -45,5 +45,29 @@ namespace FastAPI.Application.Services.Common
                 return new ServiceResult<TModel>(exception.Message);
             }
         }
+
+        public virtual async Task<ServiceResult<TModel>> UpdateAsync<TModel>(TUpdateModel model, CancellationToken cancellationToken)
+        {
+            var entity = this.mapper.Map<TEntity>(model);
+            try
+            {
+                using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    entity = await this.domainService.UpdateAsync(entity, cancellationToken);
+                    transaction.Complete();
+                }
+                return new ServiceResult<TModel>(this.mapper.Map<TModel>(entity));
+
+            }
+            catch (DomainException domainException)
+            {
+                return new ServiceResult<TModel>(domainException.Errors);
+            }
+            catch (Exception exception)
+            {
+                return new ServiceResult<TModel>(exception.Message);
+            }
+        }
+
     }
 }

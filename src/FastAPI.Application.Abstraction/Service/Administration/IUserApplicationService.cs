@@ -4,7 +4,7 @@ using FastAPI.Domain.Entities;
 
 namespace FastAPI.Application.Abstraction.Service.Administration
 {
-    public interface IUserApplicationService : ICrudApplicationService<User, UserModel>
+    public interface IUserApplicationService : ICrudApplicationService<User, UserModel, UserUpdateModel>
     {
     }
 }

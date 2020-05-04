@@ -41,6 +41,11 @@ namespace FastAPI.Sample
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder => builder.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+            .WithExposedHeaders("content-disposition"));
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c=>

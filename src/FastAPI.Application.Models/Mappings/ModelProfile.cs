@@ -10,6 +10,10 @@ namespace FastAPI.Application.Models.Mappings
         {
             CreateMap<User, UserModel>()
                 .ReverseMap();
+
+            CreateMap<User, UserUpdateModel>()
+                .ReverseMap()
+                .ForMember(x=> x.Password, opt => opt.Ignore());
         }
     }
 }

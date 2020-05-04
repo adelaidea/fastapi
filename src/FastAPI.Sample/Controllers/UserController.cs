@@ -7,12 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace FastAPI.Sample.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class UserController : CrudController<User, int, UserModel, UserModel>
+    [Route("users")]
+    public class UserController : CrudController<User, int, UserModel, UserUpdateModel>
     {        
         public UserController(IUserApplicationService service) : base(service)
-        {
-
-        }
+        {}
+    
     }
 }
