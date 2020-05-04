@@ -44,7 +44,7 @@ namespace FastAPI.Application.Services.Common
             {
                 return new ServiceResult<TModel>(exception.Message);
             }
-        }      
+        }
 
         public async Task<ServiceResult> DeleteAsync<TKey>(TKey key)
         {
@@ -52,7 +52,7 @@ namespace FastAPI.Application.Services.Common
             {
                 using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                     await this.domainService.DeleteAsync(key);
+                    await this.domainService.DeleteAsync(key);
                     transaction.Complete();
                 }
                 return new ServiceResult();
@@ -72,14 +72,11 @@ namespace FastAPI.Application.Services.Common
         {
             var entity = this.mapper.Map<TEntity>(model);
             try
-            {
-                bool newTransaction = false;
+            {                
                 using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
                     entity = await this.domainService.UpdateAsync(entity, cancellationToken);
-                    
-                    if(newTransaction)
-                        transaction.Complete();
+                    transaction.Complete();
                 }
                 return new ServiceResult<TModel>(this.mapper.Map<TModel>(entity));
 

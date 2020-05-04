@@ -24,8 +24,5 @@ namespace FastAPI.Application.Services.Common
             return new ServiceResult<TModel>(this.mapper.Map<TModel>(entity));            
         }
 
-
-
-        
     }
 }
