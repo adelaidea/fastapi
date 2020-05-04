@@ -24,6 +24,7 @@ namespace FastAPI.Sample
             services
                 .AddPersistence(Configuration)
                 .AddApplicationServices()
+                .AddDomainServices()
                 .AddAutoMapper(typeof(ModelProfile))
                 .AddSwaggerGen(c=>
                 {
