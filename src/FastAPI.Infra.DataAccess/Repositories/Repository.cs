@@ -25,7 +25,8 @@ namespace FastAPI.Infra.DataAccess.Repositories
         public async Task<T> AddAsync(T entity, CancellationToken cancellationToken)
         {
             await this.dbCobtext.Set<T>().AddAsync(entity, cancellationToken);
-            return T;
+            await this.dbCobtext.SaveChangesAsync(cancellationToken);
+            return entity;
         }
 
     }

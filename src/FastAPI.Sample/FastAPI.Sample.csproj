@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FastAPI.Application.Abstraction\FastAPI.Application.Abstraction.csproj" />
     <ProjectReference Include="..\FastAPI.Application.Services\FastAPI.Application.Services.csproj" />
+    <ProjectReference Include="..\FastAPI.Domain.Service\FastAPI.Domain.Services.csproj" />
     <ProjectReference Include="..\FastAPI.Infra.DataAccess\FastAPI.Infra.DataAccess.csproj" />
   </ItemGroup>
 

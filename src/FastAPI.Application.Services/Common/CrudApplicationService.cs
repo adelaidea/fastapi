@@ -28,7 +28,7 @@ namespace FastAPI.Application.Services.Common
 
             using(var transaction = new TransactionScope())
             {
-                entity = await this.domainService.AddAsync(entity);
+                entity = await this.domainService.AddAsync(entity, cancellationToken);
                 transaction.Complete();
             }
 
