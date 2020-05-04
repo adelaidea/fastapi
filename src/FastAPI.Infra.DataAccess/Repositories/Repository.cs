@@ -1,7 +1,6 @@
 ﻿using FastAPI.Domain.Abstractions.Repositories;
 using FastAPI.Infra.DataAccess.Filter;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ namespace FastAPI.Infra.DataAccess.Repositories
     /// Generic Repository Implementation
     /// </summary>
     /// <typeparam name="T">Entity Type</typeparam>
-    public class Repository<T> : IRepository<T> where T : class 
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly FastAPIContext dbCobtext;
 
@@ -45,7 +44,7 @@ namespace FastAPI.Infra.DataAccess.Repositories
 
         public async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken)
         {
-            var entry = this.dbCobtext.Set<T>().Attach(entity);            
+            var entry = this.dbCobtext.Set<T>().Attach(entity);
             entry.State = EntityState.Modified;
             await this.dbCobtext.SaveChangesAsync(cancellationToken);
             return entity;
@@ -59,6 +58,14 @@ namespace FastAPI.Infra.DataAccess.Repositories
             return await query.ToListAsync(cancellationToken);
         }
 
+
+        public async Task DeleteAsync(params object[] id)
+        {
+            var entity = await this.dbCobtext.Set<T>().FindAsync(id);
+            this.dbCobtext.Set<T>().Remove(entity);
+            await this.dbCobtext.SaveChangesAsync();
+        }
+
         public bool Any(IFilter<T> filter)
         {
             IQueryable<T> query = this.dbCobtext.Set<T>();
@@ -67,6 +74,6 @@ namespace FastAPI.Infra.DataAccess.Repositories
         }
 
 
-     
+
     }
 }

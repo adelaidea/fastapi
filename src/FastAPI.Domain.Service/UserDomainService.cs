@@ -41,7 +41,6 @@ namespace FastAPI.Domain.Services
             return base.UpdateAsync(dbEntity, cancellationToken);
         }
 
-
         private bool CheckEmailExists(string email, int currentId)
         {
             var filter = this.repository.CreateFilter();

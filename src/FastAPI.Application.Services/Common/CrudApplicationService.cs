@@ -40,9 +40,31 @@ namespace FastAPI.Application.Services.Common
             {
                 return new ServiceResult<TModel>(domainException.Errors);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 return new ServiceResult<TModel>(exception.Message);
+            }
+        }      
+
+        public async Task<ServiceResult> DeleteAsync<TKey>(TKey key)
+        {
+            try
+            {
+                using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                     await this.domainService.DeleteAsync(key);
+                    transaction.Complete();
+                }
+                return new ServiceResult();
+
+            }
+            catch (DomainException domainException)
+            {
+                return new ServiceResult(domainException.Errors);
+            }
+            catch (Exception exception)
+            {
+                return new ServiceResult(exception.Message);
             }
         }
 
@@ -51,10 +73,13 @@ namespace FastAPI.Application.Services.Common
             var entity = this.mapper.Map<TEntity>(model);
             try
             {
+                bool newTransaction = false;
                 using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
                     entity = await this.domainService.UpdateAsync(entity, cancellationToken);
-                    transaction.Complete();
+                    
+                    if(newTransaction)
+                        transaction.Complete();
                 }
                 return new ServiceResult<TModel>(this.mapper.Map<TModel>(entity));
 
@@ -68,6 +93,5 @@ namespace FastAPI.Application.Services.Common
                 return new ServiceResult<TModel>(exception.Message);
             }
         }
-
     }
 }

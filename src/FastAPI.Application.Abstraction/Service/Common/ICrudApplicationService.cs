@@ -9,5 +9,7 @@ namespace FastAPI.Application.Abstraction.Service.Common
         Task<ServiceResult<TModel>> AddAsync<TModel>(TAddModel model, CancellationToken cancellationToken);
 
         Task<ServiceResult<TModel>> UpdateAsync<TModel>(TUpdateModel model, CancellationToken cancellationToken);
+
+        Task<ServiceResult> DeleteAsync<TKey>(TKey key);
     }
 }

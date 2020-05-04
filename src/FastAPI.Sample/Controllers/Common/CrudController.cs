@@ -40,8 +40,27 @@ namespace FastAPI.Sample.Controllers.Common
             return Resolve(await this.applicationService.UpdateAsync<TUpdateModel>(model, cancellationToken));
         }
 
+        [HttpDelete("delete")]
+        public virtual async Task<IActionResult> DeleteAsync(TKey key, CancellationToken cancellationToken)
+        {
+            return Resolve(await this.applicationService.DeleteAsync(key));
+        }
 
-        public IActionResult Resolve<TModel>(ServiceResult<TModel> result)
+
+        protected IActionResult Resolve<TModel>(ServiceResult<TModel> result)
+        {
+            if (result.Errors?.Any() == true)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
+        }
+
+        protected IActionResult Resolve(ServiceResult result)
         {
             if (result.Errors?.Any() == true)
             {

@@ -30,6 +30,11 @@ namespace FastAPI.Domain.Services
             throw new DomainException(errors);
         }
 
+        public virtual async Task DeleteAsync(params object[] id)
+        {
+            await this.repository.DeleteAsync(id);
+        }
+
         public virtual async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken)
         {
             string[] errors;

@@ -3,6 +3,7 @@ using FastAPI.Application.Abstraction.Service;
 using FastAPI.Application.Models;
 using FastAPI.Domain.Abstractions.Repositories;
 using FastAPI.Domain.Core;
+using System.Transactions;
 
 namespace FastAPI.Application.Services.Common
 {
@@ -23,5 +24,8 @@ namespace FastAPI.Application.Services.Common
             return new ServiceResult<TModel>(this.mapper.Map<TModel>(entity));            
         }
 
+
+
+        
     }
 }
