@@ -1,4 +1,3 @@
-
 #FastAPI - Projeto extensível para desenvolvimento de API's com .net core de forma rápida
 
 # Arquitetura do Projeto
