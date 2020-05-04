@@ -8,7 +8,12 @@ namespace FastAPI.Application.Models.Mappings
     {
         public ModelProfile()
         {
-            CreateMap<User, UserModel>();
+            CreateMap<User, UserModel>()
+                .ReverseMap();
+
+            CreateMap<User, UserUpdateModel>()
+                .ReverseMap()
+                .ForMember(x=> x.Password, opt => opt.Ignore());
         }
     }
 }

@@ -24,6 +24,7 @@ namespace FastAPI.Sample
             services
                 .AddPersistence(Configuration)
                 .AddApplicationServices()
+                .AddDomainServices()
                 .AddAutoMapper(typeof(ModelProfile))
                 .AddSwaggerGen(c=>
                 {
@@ -39,6 +40,11 @@ namespace FastAPI.Sample
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder => builder.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+            .WithExposedHeaders("content-disposition"));
 
             app.UseSwagger();
 
