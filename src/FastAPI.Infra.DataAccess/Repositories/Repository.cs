@@ -1,4 +1,9 @@
 ﻿using FastAPI.Domain.Abstractions.Repositories;
+using FastAPI.Infra.DataAccess.Filter;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,6 +22,13 @@ namespace FastAPI.Infra.DataAccess.Repositories
             this.dbCobtext = context;
         }
 
+
+        public IFilter<T> CreateFilter()
+        {
+            return new Filter<T>();
+        }
+
+
         public T Get(params object[] key)
         {
             return this.dbCobtext.Set<T>().Find(key);
@@ -29,5 +41,19 @@ namespace FastAPI.Infra.DataAccess.Repositories
             return entity;
         }
 
+
+        public async Task<IList<T>> ListAsync(IFilter<T> filter, CancellationToken cancellationToken)
+        {
+            IQueryable<T> query = this.dbCobtext.Set<T>();
+            query = filter.GetQuery(query);
+            return await query.ToListAsync(cancellationToken);
+        }
+
+        public bool Any(IFilter<T> filter)
+        {
+            IQueryable<T> query = this.dbCobtext.Set<T>();
+            query = filter.GetQuery(query);
+            return query.Any();
+        }
     }
 }

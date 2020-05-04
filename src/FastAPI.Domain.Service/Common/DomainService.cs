@@ -1,5 +1,6 @@
 ﻿using FastAPI.Domain.Abstractions.Repositories;
 using FastAPI.Domain.Abstractions.Services;
+using FastAPI.Domain.Core.Exceptions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,16 +18,19 @@ namespace FastAPI.Domain.Services
 
         public async Task<T> AddAsync(T entity, CancellationToken cancellationToken)
         {
-            if (this.IsValid(entity))
+            string[] errors;
+
+            if (this.IsValid(entity, out errors))
             {
                 entity = await this.repository.AddAsync(entity, cancellationToken);
+                return entity;
             }
 
             //TO DO: Implement Domain Exceptions
-            throw new Exception("Invalid Data");
+            throw new DomainException(errors);
         }
 
 
-        public abstract bool IsValid(T entity);
+        public abstract bool IsValid(T entity, out string[] errors);
     }
 }

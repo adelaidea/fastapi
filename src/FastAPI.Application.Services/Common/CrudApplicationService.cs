@@ -3,6 +3,7 @@ using FastAPI.Application.Abstraction.Service.Common;
 using FastAPI.Application.Models;
 using FastAPI.Domain.Abstractions.Repositories;
 using FastAPI.Domain.Abstractions.Services;
+using FastAPI.Domain.Core.Exceptions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,17 +23,27 @@ namespace FastAPI.Application.Services.Common
             this.mapper = mapper;
         }
 
-        public async Task<ServiceResult<TModel>> AddAsync<TModel>(TAddModel model, CancellationToken cancellationToken)
+        public virtual async Task<ServiceResult<TModel>> AddAsync<TModel>(TAddModel model, CancellationToken cancellationToken)
         {
             var entity = this.mapper.Map<TEntity>(model);
-
-            using(var transaction = new TransactionScope())
+            try
             {
-                entity = await this.domainService.AddAsync(entity, cancellationToken);
-                transaction.Complete();
-            }
+                using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    entity = await this.domainService.AddAsync(entity, cancellationToken);
+                    transaction.Complete();
+                }
+                return new ServiceResult<TModel>(this.mapper.Map<TModel>(entity));
 
-            return new ServiceResult<TModel>(this.mapper.Map<TModel>(entity));
+            }
+            catch (DomainException domainException)
+            {
+                return new ServiceResult<TModel>(domainException.Errors);
+            }
+            catch(Exception exception)
+            {
+                return new ServiceResult<TModel>(exception.Message);
+            }
         }
     }
 }

@@ -7,7 +7,14 @@
             this.Data = data;
         }
 
-       public T Data { get; private set; }
-       
+        public ServiceResult(params string[] errors)
+        {
+            this.Errors = errors;
+        }
+
+        public T Data { get; private set; }
+
+        public string[] Errors { get; private set; }
+
     }
 }

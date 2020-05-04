@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FastAPI.Domain.Abstractions.Repositories
@@ -7,6 +9,14 @@ namespace FastAPI.Domain.Abstractions.Repositories
     {
         T Get(params object[] key);
 
+        IFilter<T> CreateFilter();
+
         Task<T> AddAsync(T entity, CancellationToken cancellationToken);
+
+        Task<IList<T>> ListAsync(IFilter<T> filter, CancellationToken cancellationToken);
+
+        bool Any(IFilter<T> filter);
+
+
     }
 }
