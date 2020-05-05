@@ -33,6 +33,7 @@ Existem as seguintes premissas:
 - Modelos para as operações Create, Update e Read
 - Application Service.
 
+```c#
     [ApiController]
     [Route("users")]
     public class UserController : CrudController<User, int, UserAddModel, UserUpdateModel, UserReadModel>
@@ -43,8 +44,7 @@ Existem as seguintes premissas:
         }
     
     }
-
-
+```
 
 ## Application
 
