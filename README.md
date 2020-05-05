@@ -8,7 +8,6 @@
 - Fluent Validation
 
 
-
 # Considerações importantes
 
 Como o intuito desse modelo é entregar um conjunto de facilidades para o desenvolvimento de um projeto,
@@ -17,14 +16,28 @@ pequenos projetos em que deseja entregar de forma rápida um código organizado,
 
 No decorrer do tempo vou atualizar tanto a descrição como o código do projeto para explicar melhor como utilizá-lo.
 
-# Conceitos Principais
+# Sample Project
 
-## Entidades
+## API
 
-As entidades são objetos abstratos e nesse modelo não são obrigatoriamente serializáveis, pois representam uma abstração. 
+ - API Controllers
 
-## Value Objects
+## Application
 
-Esse objetos são uma representação de um tipo que encapsulam pequenas regras de negócio, um simples exemplo um tipo "Email", que pode conter validação do conteúdo, obrigatoriedade, tamanho e etc.
+- Application Services
+- Models
+- AutoMapper Configuration
+
+## Infra
+
+- Repositories
+- DbContext
+
+## Domain
+
+- Entities
+- Repository Contracts
+- Domain Services (Implementation / Contracts)
+
 
 
