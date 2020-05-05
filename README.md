@@ -10,7 +10,6 @@
 - Fluent Validation
 
 
-
 # Considerações importantes
 
 Como o intuito desse modelo é entregar um conjunto de facilidades para o desenvolvimento de um projeto,
@@ -18,5 +17,29 @@ muitas ideias podem ser retiradas daqui. Não aconselho utilizar esse código em
 pequenos projetos em que deseja entregar de forma rápida um código organizado, conciso e altamente testável.
 
 No decorrer do tempo vou atualizar tanto a descrição como o código do projeto para explicar melhor como utilizá-lo.
+
+# Sample Project
+
+## API
+
+ - API Controllers
+
+## Application
+
+- Application Services
+- Models
+- AutoMapper Configuration
+
+## Infra
+
+- Repositories
+- DbContext
+
+## Domain
+
+- Entities
+- Repository Contracts
+- Domain Services (Implementation / Contracts)
+
 
 
