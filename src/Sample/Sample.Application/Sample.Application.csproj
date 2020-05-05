@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\FastAPI.Application.Services\FastAPI.Application.Services.csproj" />
+    <ProjectReference Include="..\..\Framework\FastAPI.Domain\FastAPI.Domain.csproj" />
     <ProjectReference Include="..\Sample.Application.Boundaries\Sample.Application.Boundaries.csproj" />
   </ItemGroup>
 
