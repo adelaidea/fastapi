@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastAPI.Application.Abstrac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastAPI.Infra.DataAccess", "Framework\FastAPI.Infra.DataAccess\FastAPI.Infra.DataAccess.csproj", "{9AA0BC79-5456-46E3-959F-2086874CC363}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastAPI.Domain", "Framework\FastAPI.Domain.Entities\FastAPI.Domain.csproj", "{5C4F2D09-DADE-4CEE-9E21-4A18814B1EE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastAPI.Domain", "Framework\FastAPI.Domain\FastAPI.Domain.csproj", "{5C4F2D09-DADE-4CEE-9E21-4A18814B1EE1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{76FB5ABB-4ED3-42FB-B415-86D94D90E961}"
 EndProject
