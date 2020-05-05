@@ -29,7 +29,8 @@ No decorrer do tempo vou atualizar tanto a descrição como o código do projeto
 Para atribuir 4 operações a uma entidade por herança do controller base que implementa de forma genérica 4 operações (Create, Read, Update e Delete) basta herdar o controller CrudController.
 
 Existem as seguintes premissas:
-- Entidada
+- Entidade
+- Chave Primária para Busca por Id
 - Modelos para as operações Create, Update e Read
 - Application Service.
 
