@@ -13,6 +13,7 @@
     <ProjectReference Include="..\..\Sample\Sample.Domain\Sample.Domain.csproj" />
     <ProjectReference Include="..\FastAPI.Core\FastAPI.Core.csproj" />
     <ProjectReference Include="..\FastAPI.Domain.Entities\FastAPI.Domain.csproj" />
+    <ProjectReference Include="..\FastAPI.Domain\FastAPI.Domain.csproj" />
   </ItemGroup>
 
 </Project>

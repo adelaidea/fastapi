@@ -1,6 +1,6 @@
 #FastAPI - Projeto extensível para desenvolvimento de API's com .net core de forma rápida
 
-# Arquitetura do Projeto
+# Tecnologias Utilizadas
 
 - .Net Core 3.1
 - Entity Framework Core
@@ -16,11 +16,33 @@ pequenos projetos em que deseja entregar de forma rápida um código organizado,
 
 No decorrer do tempo vou atualizar tanto a descrição como o código do projeto para explicar melhor como utilizá-lo.
 
-# Sample Project
+# Projeto de Exemplo 
 
 ## API
 
  - API Controllers
+
+ - CRUD Controllers 
+
+Para atribuir 4 operações a uma entidade por herança do controller base que implementa de forma genérica 4 operações (Create, Read, Update e Delete) basta herdar o controller CrudController.
+
+Existem as seguintes premissas:
+- Entidada
+- Modelos para as operações Create, Update e Read
+- Application Service.
+
+    [ApiController]
+    [Route("users")]
+    public class UserController : CrudController<User, int, UserAddModel, UserUpdateModel, UserReadModel>
+    {        
+        public UserController(IUserApplicationService service) : base(service)
+        {
+        
+        }
+    
+    }
+
+
 
 ## Application
 

@@ -8,7 +8,7 @@ namespace FastAPI.Infra.DataAccess.Filter
 {
     public class Filter<TEntity> : IFilter<TEntity> where TEntity : class
     {
-        private Queue<Expression<Func<TEntity, bool>>> Expressions;
+        private readonly Queue<Expression<Func<TEntity, bool>>> Expressions;
 
         public Filter()
         {
